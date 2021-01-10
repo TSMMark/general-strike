@@ -5,7 +5,8 @@ import Index from '../pages/index'
 
 describe('Index', () => {
   test('displays the heading', async () => {
-    render(<Index />)
+    // TODO: Add blogs
+    render(<Index blogs={[]} />)
 
     expect(screen.getByRole('heading')).toHaveTextContent('General Strike')
   })

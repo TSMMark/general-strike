@@ -1,7 +1,10 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React, { ReactElement } from 'react'
 
-const Home = (): ReactElement => {
+const Home = ({
+  blogs,
+}): ReactElement => {
   return (
     <div>
       <Head>
@@ -17,9 +20,9 @@ const Home = (): ReactElement => {
           General Strike
         </h1>
 
-        <div>
+        <h2 className="text-lg">
           For a non-violent REVOLUTION
-        </div>
+        </h2>
 
         <div className="max-w-4xl py-8">
           <ul>
@@ -56,6 +59,25 @@ const Home = (): ReactElement => {
           </ul>
         </div>
 
+        <div className="py-8">
+          <h1 className="text-xl">Posts</h1>
+          <ul>
+            {blogs.map(({ id, slug, title, date }, idx) => {
+              return (
+                <li key={id}>
+                  <Link href={`/blog/${slug}`}>
+                    <a>
+                      {title}
+                      {' '}
+                      ({date})
+                    </a>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
         <div>
           <div className="flex">
             <div className="flex flex-row text-center justify-items-center space-x-8 ml-auto mr-auto">
@@ -71,15 +93,37 @@ const Home = (): ReactElement => {
             </div>
           </div>
         </div>
-      </main>
 
+      </main>
     </div>
   )
 }
 
-// Pages that are statically optimized by Automatic Static Optimization will be hydrated without their route parameters provided, i.e query will be an empty object ({}).
-// Home.getInitialProps = async () => {
-//   return {}
-// }
+// This function gets called at build time on server-side.
+export async function getStaticProps() {
+  const fs = require('fs')
+  const matter = require('gray-matter')
+  const { v4: uuid } = require('uuid')
+
+  const files = fs.readdirSync(`${process.cwd()}/contents`, 'utf-8')
+
+  const blogs = files
+    .filter((filename) => filename.endsWith('.md'))
+    .map((filename) => {
+      const path = `${process.cwd()}/contents/${filename}`
+      const rawContent = fs.readFileSync(path, {
+        encoding: 'utf-8',
+      })
+      const { data } = matter(rawContent)
+
+      return { ...data, id: uuid() }
+    })
+
+  // By returning { props: blogs }, the Home component
+  // will receive `blogs` as a prop.
+  return {
+    props: { blogs },
+  }
+}
 
 export default Home
