@@ -1,10 +1,19 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { ReactElement } from 'react'
+import React, { FC } from 'react'
 
-const Home = ({
+type Props = {
+  blogs: {
+    id: string,
+    slug: string,
+    title: string,
+    date: string,
+  }[]
+}
+
+const Home: FC<Props> = ({
   blogs,
-}): ReactElement => {
+}) => {
   return (
     <div>
       <Head>
@@ -62,14 +71,12 @@ const Home = ({
         <div className="py-8">
           <h1 className="text-xl">Posts</h1>
           <ul>
-            {blogs.map(({ id, slug, title, date }, idx) => {
+            {blogs.map(({ id, slug, title, date }) => {
               return (
                 <li key={id}>
                   <Link href={`/blog/${slug}`}>
                     <a>
-                      {title}
-                      {' '}
-                      ({date})
+                      {title} ({date})
                     </a>
                   </Link>
                 </li>
@@ -100,16 +107,16 @@ const Home = ({
 }
 
 // This function gets called at build time on server-side.
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<{ props: Props }> {
   const fs = require('fs')
   const matter = require('gray-matter')
   const { v4: uuid } = require('uuid')
 
-  const files = fs.readdirSync(`${process.cwd()}/contents`, 'utf-8')
+  const files: string[] = fs.readdirSync(`${process.cwd()}/contents`, 'utf-8')
 
   const blogs = files
-    .filter((filename) => filename.endsWith('.md'))
-    .map((filename) => {
+    .filter((filename: string) => filename.endsWith('.md'))
+    .map((filename: string) => {
       const path = `${process.cwd()}/contents/${filename}`
       const rawContent = fs.readFileSync(path, {
         encoding: 'utf-8',

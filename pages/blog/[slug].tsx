@@ -1,12 +1,21 @@
-import React from 'react'
+import { GetStaticPropsContext, GetStaticPaths } from 'next'
+import React, { FC } from 'react'
 
-function BlogPostPage({
+type Props = {
+  blog: {
+    title: string,
+    date: string,
+    content: string,
+  },
+}
+
+const BlogPost: FC<Props> = ({
   blog: {
     title,
     date,
     content,
   },
-}) {
+}) => {
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen bg-stars bg-black text-white">
       <h1 className="text-xl lg:text-2xl text-center tracking-widest pt-20 lg:pt-0">
@@ -24,8 +33,8 @@ function BlogPostPage({
   )
 }
 
-// pass props to BlogPostPage component
-export async function getStaticProps(context) {
+// pass props to BlogPost component
+export async function getStaticProps(context: GetStaticPropsContext): Promise<{ props: Props }> {
   const fs = require('fs')
   const html = require('remark-html')
   const unified = require('unified')
@@ -58,7 +67,7 @@ export async function getStaticProps(context) {
 }
 
 // generate HTML paths at build time
-export async function getStaticPaths(context) {
+export const getStaticPaths: GetStaticPaths = async () => {
   const fs = require('fs')
 
   const path = `${process.cwd()}/contents`
@@ -80,4 +89,4 @@ export async function getStaticPaths(context) {
   }
 }
 
-export default BlogPostPage
+export default BlogPost
