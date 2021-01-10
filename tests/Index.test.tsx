@@ -5,8 +5,9 @@ import Index from '../pages/index'
 
 describe('Index', () => {
   test('displays the heading', async () => {
-    render(<Index />)
+    render(<Index blogs={[{ id: 'ok', slug: 'ok', title: 'My Blog', date: '01-01-2001' }]} />)
 
-    expect(screen.getByRole('heading')).toHaveTextContent('General Strike')
+    screen.getByText('General Strike')
+    screen.getByText('My Blog (01-01-2001)')
   })
 })
