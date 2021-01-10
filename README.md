@@ -2,6 +2,8 @@
 
 This is a proof of concept blog site.
 
+https://general-strike.vercel.app
+
 ## Adding blog posts
 
 Blog posts are generated automatically based on the markdown files in the [`contents/`](contents) directory.
