@@ -67,7 +67,7 @@ const Home: FC<Props> = ({
         <div className="py-32 bg-white text-black w-screen grid">
           <div className="max-w-4xl justify-self-center">
             <h3 className="text-lg">
-              What we're fighting for
+              { 'What we\'re fighting for' }
             </h3>
 
             <ul>
