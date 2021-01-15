@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Img from 'next/image'
 import React, { FC } from 'react'
 
 type Props = {
@@ -25,67 +26,87 @@ const Home: FC<Props> = ({
       </Head>
 
       <main className="relative flex flex-col items-center justify-center min-h-screen bg-stars bg-black text-white">
-        <h1 className="text-xl lg:text-2xl text-center tracking-widest pt-20 lg:pt-0">
-          General Strike
-        </h1>
+        <div className="py-32">
+          <Img
+            alt="General Strike Logo"
+            src='/images/logo.png'
+            width='400'
+            height='400'
+          />
+          <h1 className="hidden">
+            General Strike for a Non-Violent Revolution
+          </h1>
 
-        <h2 className="text-lg">
-          For a non-violent REVOLUTION
-        </h2>
-
-        <div className="max-w-4xl py-8">
-          <ul>
-            <li className="py-2">
-              {'A people\'s Manifesto for A better World.'}
-            </li>
-            <li className="py-2">
-              90% Tax on top 1%. Wealth Tax. Lower retirement age to 60. 50 for workers in physically demanding jobs. $25 an hour minimum wage. 12 weeks paid vacation. 28 hour work week. Pay everyone $25 an hour a day to exercise. $2000 month UBI. $1000 a month for every child under 18. All businesses 50% co-ops.
-            </li>
-            <li className="py-2">
-              CEO’s can only make 20 times more than lowest paid worker.
-            </li>
-            <li className="py-2">
-              One Year paid parental leave. Medicare For All.
-            </li>
-            <li className="py-2">
-              End All foreclosures & Evictions. Rent & Mortgage freeze until crisis is over.
-            </li>
-            <li className="py-2">
-              Free Public transportation. End fracking. Green New Deal. Publicly free Wi-Fi.
-            </li>
-            <li className="py-2">
-              Reparations for A.D.O.S. $4.7 trillion over next 3 generations in trust to be opened at age 18. Free DNA testing & access to all records to trace heritage.
-            </li>
-            <li className="py-2">
-              Abolish I.C.E. Return stolen children to parents. Use DNA testing to reunite them.
-            </li>
-            <li className="py-2">
-              End All pipelines on Indigenous land.
-            </li>
-            <li className="py-2">
-              Civilian Control of All Police Departments- hiring, firing, prosecuting
-            </li>
-          </ul>
+          <h2 className="hidden">
+            { 'People\'s Manifesto for a Better World.' }
+          </h2>
         </div>
 
-        <div className="py-8">
-          <h1 className="text-xl">Posts</h1>
-          <ul>
-            {blogs.map(({ id, slug, title, date }) => {
-              return (
-                <li key={id}>
-                  <Link href={`/blog/${slug}`}>
-                    <a>
-                      {title} ({date})
-                    </a>
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
+        <div className="py-32">
+          <h3 className="text-xl tracking-widest py-4">
+            Read what we have to say
+          </h3>
+
+          <div>
+            <ul>
+              {blogs.map(({ id, slug, title, date }) => {
+                return (
+                  <li key={id}>
+                    <Link href={`/blog/${slug}`}>
+                      <a>
+                        {title} <span className="text-sm text-white text-opacity-50">({date})</span>
+                      </a>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
 
-        <div>
+        <div className="py-32 bg-white text-black w-screen grid">
+          <div className="max-w-4xl justify-self-center">
+            <h3 className="text-lg">
+              What we're fighting for
+            </h3>
+
+            <ul>
+              <li className="py-2">
+                90% Tax on top 1%. Wealth Tax. Lower retirement age to 60. 50 for workers in physically demanding jobs. $25 an hour minimum wage. 12 weeks paid vacation. 28 hour work week. Pay everyone $25 an hour a day to exercise. $2000 month UBI. $1000 a month for every child under 18. All businesses 50% co-ops.
+              </li>
+              <li className="py-2">
+                CEO’s can only make 20 times more than lowest paid worker.
+              </li>
+              <li className="py-2">
+                One Year paid parental leave. Medicare For All.
+              </li>
+              <li className="py-2">
+                End All foreclosures & Evictions. Rent & Mortgage freeze until crisis is over.
+              </li>
+              <li className="py-2">
+                Free Public transportation. End fracking. Green New Deal. Publicly free Wi-Fi.
+              </li>
+              <li className="py-2">
+                Reparations for A.D.O.S. $4.7 trillion over next 3 generations in trust to be opened at age 18. Free DNA testing & access to all records to trace heritage.
+              </li>
+              <li className="py-2">
+                Abolish I.C.E. Return stolen children to parents. Use DNA testing to reunite them.
+              </li>
+              <li className="py-2">
+                End All pipelines on Indigenous land.
+              </li>
+              <li className="py-2">
+                Civilian Control of All Police Departments- hiring, firing, prosecuting
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="py-32">
+          <h3 className="text-lg">
+            Follow us on social media
+          </h3>
+
           <div className="flex">
             <div className="flex flex-row text-center justify-items-center space-x-8 ml-auto mr-auto">
               <a href="#" aria-label="facebook" className="text-theme_grayishBlue hover:text-theme_softRed">

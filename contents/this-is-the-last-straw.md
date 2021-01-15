@@ -1,6 +1,6 @@
 ---
-title: My First Blog Post
-slug: hello-world
+title: This is the Last Straw
+slug: this-is-the-last-straw
 date: "09-01-2021"
 ---
 
